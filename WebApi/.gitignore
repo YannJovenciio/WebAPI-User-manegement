@@ -1,0 +1,21 @@
+# Build results
+[Dd]ebug/
+[Rr]elease/
+bin/
+obj/
+
+# User-specific files
+*.user
+*.suo
+*.userprefs
+
+# Database files
+*.db
+*.db-shm
+*.db-wal
+
+# VS Code
+.vscode/
+
+# Environment variables
+appsettings.local.json
