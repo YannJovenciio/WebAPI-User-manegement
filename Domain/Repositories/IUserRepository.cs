@@ -8,7 +8,6 @@ namespace WebApplication1.Domain.Repositories;
 
 public interface IUserRepository
 {
-    public Task<IEnumerable<User>> GetAllAsync();
-
-    public Task AddUserAsync(User user);
+    Task<IEnumerable<User>> GetAllAsync();
+    Task<User> CreateUserAsync(User user);
 }

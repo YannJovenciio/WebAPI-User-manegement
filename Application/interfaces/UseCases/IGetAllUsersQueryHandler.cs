@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using WebApplication1.Domain.Entities;
+using WebApplication1.Application.DTOs;
 
 namespace WebApplication1.Application.interfaces.UseCases;
 

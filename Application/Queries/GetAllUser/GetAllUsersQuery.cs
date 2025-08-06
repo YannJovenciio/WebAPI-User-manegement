@@ -4,8 +4,8 @@ using System.Data.Common;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using WebApplication1.Application.DTOs;
 using WebApplication1.Application.interfaces.Queries;
-using WebApplication1.Domain.Entities;
 using WebApplication1.Infrastructure.DbContex;
 
 namespace WebApplication1.Application.Queries;

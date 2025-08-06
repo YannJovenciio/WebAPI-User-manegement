@@ -1,18 +1,15 @@
-using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using WebApplication1.Application.DTOs;
 using WebApplication1.Application.interfaces.Command;
-using WebApplication1.Application.interfaces.Queries;
 using WebApplication1.Application.interfaces.UseCases;
 using WebApplication1.Controllers.Model;
 using WebApplication1.Domain.Entities;
-using WebApplication1.Domain.Repositories;
 
 namespace WebApplication1.Controllers.UserController;
 
+[ApiController]
+[Route("[controller]")]
 public class UserController(
     ILogger<UserController> logger,
     IGetAllUsersQueryHandler handler,
