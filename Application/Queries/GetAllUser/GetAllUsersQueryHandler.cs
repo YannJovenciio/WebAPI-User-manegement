@@ -7,7 +7,7 @@ using WebApplication1.Domain.Entities;
 
 namespace WebApplication1.Application.Queries.GetAllUser
 {
-    public class GetAllUsersCommandHandler(GetAllUsersQuery query) : IGetAllUsersQueryHandler
+    public class GetAllUsersQueryHandler(GetAllUsersQuery query) : IGetAllUsersQueryHandler
     {
         private readonly GetAllUsersQuery _query = query;
 

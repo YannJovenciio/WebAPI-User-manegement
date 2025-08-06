@@ -8,7 +8,7 @@ using WebApplication1.Infrastructure.DbContex;
 
 namespace WebApplication1.Application.Commands.CreateUser;
 
-public class AddUserCommandHandler(UserDbContext db) : IAddUsersCommand
+public class AddUserCommand(UserDbContext db) : IAddUsersCommand
 {
     public async Task AddUserAsync(User entity)
     {
