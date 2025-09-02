@@ -12,7 +12,8 @@ namespace WebApplication1.Controllers.UserController;
 [Route("[controller]")]
 public class UserController(
     ILogger<UserController> logger,
-    IGetAllUsersQueryHandler handler,
+    IGetAllUsersQueryHandler getAll,
+    IDeleteUserCommand delete,
     IAddUsersCommand usersCommand
 ) : ControllerBase
 {
@@ -22,7 +23,7 @@ public class UserController(
         var stopwatch = Stopwatch.StartNew();
         logger.LogInformation("Request started: GET /api/Users");
 
-        var users = await handler.HandleAsync();
+        var users = await getAll.HandleAsync();
 
         stopwatch.Stop();
         logger.LogInformation(
@@ -48,5 +49,22 @@ public class UserController(
         );
 
         return Ok(new ApiResponse<User>(user));
+    }
+
+    [HttpDelete]
+    public async Task<IActionResult> Delete(Guid id, CancellationToken cancellationToken)
+    {
+        var stopwatch = Stopwatch.StartNew();
+        logger.LogInformation("Request start: Delete /api/Users");
+
+        delete.DeleteUserAsync(id, cancellationToken);
+
+        stopwatch.Stop();
+        logger.LogInformation(
+            "Request finished: Delete /api/Users in {ElapsedMilliseconds}",
+            stopwatch.ElapsedMilliseconds
+        );
+
+        return NoContent();
     }
 }

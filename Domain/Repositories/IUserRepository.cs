@@ -10,4 +10,5 @@ public interface IUserRepository
 {
     Task<IEnumerable<User>> GetAllAsync();
     Task<User> CreateUserAsync(User user);
+    Task DeleteUserAsync(Guid id,CancellationToken cancellationToken);
 }
