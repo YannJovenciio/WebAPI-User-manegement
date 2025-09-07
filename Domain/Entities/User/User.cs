@@ -2,9 +2,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace WebApplication1.Domain.Entities;
 
+[Index(nameof(Email), IsUnique = true)]
 public class User
 {
     public Guid Id { get; set; } = Guid.NewGuid();
@@ -20,7 +22,6 @@ public class User
         Password = password;
     }
 
-    // Construtor sem parâmetros para o Entity Framework
     public User()
     {
         Id = Guid.NewGuid();

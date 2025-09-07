@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using WebApplication1.Domain.Entities;
 using WebApplication1.Infrastructure.DbContex;
@@ -12,15 +8,26 @@ public class UserRepository : IUserRepository
 {
     private readonly UserDbContext _context;
 
-    public UserRepository(UserDbContext context)
+    private readonly ILogger<UserRepository> _logger;
+
+    public UserRepository(UserDbContext context, ILogger<UserRepository> logger)
     {
         _context = context;
+        _logger = logger;
     }
 
     public async Task<User> CreateUserAsync(User user)
     {
-        await _context.Users.AddAsync(user);
-        await _context.SaveChangesAsync();
+        var emailExists = await _context.Users.AnyAsync(u =>
+            u.Email == user.Email && u.Name == user.Name
+        );
+        if (!emailExists)
+        {
+            await _context.Users.AddAsync(user);
+            await _context.SaveChangesAsync();
+            return user;
+        }
+        _logger.LogInformation($"User with id {user.Id} already exists");
         return user;
     }
 
