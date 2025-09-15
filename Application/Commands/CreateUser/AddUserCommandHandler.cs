@@ -19,6 +19,15 @@ public class AddUserCommand : IAddUsersCommand
 
     public async Task AddUserAsync(User entity)
     {
+        if (
+            string.IsNullOrWhiteSpace(entity.Email)
+            || string.IsNullOrWhiteSpace(entity.Password)
+            || string.IsNullOrWhiteSpace(entity.Name)
+        )
+        {
+            throw new ArgumentException();
+        }
+
         await _userRepository.CreateUserAsync(entity);
     }
 }

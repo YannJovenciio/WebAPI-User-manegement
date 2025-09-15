@@ -18,6 +18,7 @@ public class GetAllUsersQuery(UserDbContext db) : IGetAllUsersQuery
     {
         return await _db
             .Users.Select(x => new UserDTO { Email = x.Email, Name = x.Name })
+            .OrderBy(name => name.Name)
             .ToListAsync();
     }
 }
