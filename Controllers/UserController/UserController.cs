@@ -1,4 +1,5 @@
 using System.Diagnostics;
+using System.Security.Cryptography.X509Certificates;
 using Microsoft.AspNetCore.Mvc;
 using WebApplication1.Application.DTOs;
 using WebApplication1.Application.interfaces.Command;
@@ -12,9 +13,10 @@ namespace WebApplication1.Controllers.UserController;
 [Route("[controller]")]
 public class UserController(
     ILogger<UserController> logger,
-    IGetAllUsersQueryHandler getAll,
-    IDeleteUserCommand delete,
-    IAddUsersCommand usersCommand
+    IGetAllUsersQueryHandler getCommand,
+    IDeleteUserCommand deleteCommand,
+    IAddUsersCommand addCommand,
+    IUpdateUsersCommandHandler updateCommand
 ) : ControllerBase
 {
     [HttpGet(Name = "ReturnUsers")]
@@ -23,7 +25,7 @@ public class UserController(
         var stopwatch = Stopwatch.StartNew();
         logger.LogInformation("Request started: GET /api/Users");
 
-        var users = await getAll.HandleAsync();
+        var users = await getCommand.HandleAsync();
 
         stopwatch.Stop();
         logger.LogInformation(
@@ -40,7 +42,7 @@ public class UserController(
         var stopwatch = Stopwatch.StartNew();
         logger.LogInformation("Request started: Post /api/Users");
 
-        await usersCommand.AddUserAsync(user);
+        await addCommand.AddUserAsync(user);
 
         stopwatch.Stop();
         logger.LogInformation(
@@ -57,14 +59,28 @@ public class UserController(
         var stopwatch = Stopwatch.StartNew();
         logger.LogInformation("Request start: Delete /api/Users");
 
-        delete.DeleteUserAsync(id, cancellationToken);
+        deleteCommand.DeleteUserAsync(id, cancellationToken);
 
         stopwatch.Stop();
         logger.LogInformation(
             "Request finished: Delete /api/Users in {ElapsedMilliseconds}",
             stopwatch.ElapsedMilliseconds
         );
-
         return NoContent();
+    }
+
+    [HttpPost]
+    public async Task<UserDTO> Update(UserDTO userDTO)
+    {
+        var stopwatch = Stopwatch.StartNew();
+        logger.LogInformation("Request start: Post /api/Users");
+
+        await updateCommand.handler(userDTO);
+        stopwatch.Stop();
+        logger.LogInformation(
+            "Request finished: Post /api/Users in {ElapsedMilliseconds}",
+            stopwatch.ElapsedMilliseconds
+        );
+        return userDTO;
     }
 }

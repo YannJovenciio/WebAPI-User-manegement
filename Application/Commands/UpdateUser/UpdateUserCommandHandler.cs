@@ -13,7 +13,7 @@ public class UpdateUserCommandHandler : IUpdateUsersCommandHandler
         _repository = userRepository;
     }
 
-    public Task UpdateUserCommand(UserDTO userDTO)
+    public Task handler(UserDTO userDTO)
     {
         return _repository.UpdateUserAsync(userDTO);
     }

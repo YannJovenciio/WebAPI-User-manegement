@@ -4,5 +4,5 @@ namespace WebApplication1.Application.interfaces.Command;
 
 public interface IUpdateUsersCommandHandler
 {
-    public Task UpdateUserCommand(UserDTO userDTO);
+    public Task handler(UserDTO userDTO);
 }
