@@ -7,6 +7,9 @@ namespace WebApplication1.Application.DTOs;
 
 public class UserDTO
 {
-    public required string Name { get; set; }
-    public required string Email { get; set; }
+    public Guid id { get; set; }
+    public string Name { get; set; }
+    public string Email { get; set; }
+    public DateTime UpdatedAt { get; set; }
+    public string Password { get; set; }
 }

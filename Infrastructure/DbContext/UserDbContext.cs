@@ -31,5 +31,8 @@ public class UserEntityTypeConfiguration : IEntityTypeConfiguration<User>
         builder.Property(u => u.Name);
         builder.Property(u => u.Email).IsRequired();
         builder.Property(u => u.Password).IsRequired();
+        builder.Property(u => u.Departament);
+        builder.Property(u => u.CreatedAt);
+        builder.Property(u => u.UpdatedAt);
     }
 }
