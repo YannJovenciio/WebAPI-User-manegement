@@ -1,8 +1,21 @@
 namespace WebApplication1.Domain.Entities.UserDepartament;
 
-public enum Departament
+public class Departament
 {
-    Junior,
-    Pleno,
-    Senior,
+    public Guid Id { get; set; } = Guid.NewGuid();
+    public required string Name { get; set; }
+    public int TotalMembers { get; set; }
+    public bool IsActive { get; set; }
+    public DateTime CreatedAt { get; set; }
+
+    public Departament() { }
+
+    public Departament(string name, int totalMembers, bool isActive)
+    {
+        Id = Guid.NewGuid();
+        Name = name;
+        TotalMembers = totalMembers;
+        IsActive = isActive;
+        CreatedAt = DateTime.UtcNow;
+    }
 }

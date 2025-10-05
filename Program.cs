@@ -1,3 +1,4 @@
+using ebApplication1.Application.Commands.UpdateUser;
 using Microsoft.AspNetCore.Authentication.Negotiate;
 using Microsoft.EntityFrameworkCore;
 using WebApplication1.Application.Commands.CreateUser;
@@ -56,6 +57,7 @@ builder.Services.AddScoped<IGetAllUsersQueryHandler, GetAllUsersQueryHandler>();
 builder.Services.AddScoped<IAddUsersCommand, AddUserCommand>();
 builder.Services.AddScoped<GetAllUsersQuery>(); // ← Registrar sem interface
 builder.Services.AddScoped<IDeleteUserCommand, DeleteUserCommand>();
+builder.Services.AddScoped<IUpdateUsersCommandHandler, UpdateUserCommandHandler>();
 
 // Database
 builder.Services.AddDbContext<UserDbContext>(options => options.UseSqlite("Data Source=users.db"));

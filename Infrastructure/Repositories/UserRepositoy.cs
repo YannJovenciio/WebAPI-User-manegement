@@ -32,10 +32,10 @@ public class UserRepository : IUserRepository
         return user;
     }
 
-    public async Task DeleteUserAsync(Guid id, CancellationToken cancellationToken)
+    public async Task DeleteUserAsync(UserDTO userDTO, CancellationToken cancellationToken)
     {
-        var deleteUser = await _context
-            .Users.Where(u => u.Id == id)
+        await _context
+            .Users.Where(u => u.Name == userDTO.Name && u.Email == userDTO.Email)
             .ExecuteDeleteAsync(cancellationToken);
 
         await _context.SaveChangesAsync();

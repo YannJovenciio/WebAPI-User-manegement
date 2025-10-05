@@ -19,13 +19,13 @@ public class UserController(
     IUpdateUsersCommandHandler updateCommand
 ) : ControllerBase
 {
-    [HttpGet(Name = "ReturnUsers")]
-    public async Task<IActionResult> Get()
+    [HttpGet("GetUser")]
+    public async Task<IActionResult> Get([FromQuery] int page)
     {
         var stopwatch = Stopwatch.StartNew();
         logger.LogInformation("Request started: GET /api/Users");
 
-        var users = await getCommand.HandleAsync();
+        var users = await getCommand.HandleAsync(page);
 
         stopwatch.Stop();
         logger.LogInformation(
@@ -36,7 +36,7 @@ public class UserController(
         return Ok(new ApiResponse<IEnumerable<UserDTO>>(users));
     }
 
-    [HttpPost]
+    [HttpPost("AddUser")]
     public async Task<IActionResult> Post(User user)
     {
         var stopwatch = Stopwatch.StartNew();
@@ -53,13 +53,13 @@ public class UserController(
         return Ok(new ApiResponse<User>(user));
     }
 
-    [HttpDelete]
-    public async Task<IActionResult> Delete(Guid id, CancellationToken cancellationToken)
+    [HttpDelete("DeleteUser")]
+    public async Task<IActionResult> Delete(UserDTO user, CancellationToken cancellationToken)
     {
         var stopwatch = Stopwatch.StartNew();
         logger.LogInformation("Request start: Delete /api/Users");
 
-        deleteCommand.DeleteUserAsync(id, cancellationToken);
+        deleteCommand.DeleteUserAsync(user, cancellationToken);
 
         stopwatch.Stop();
         logger.LogInformation(
@@ -69,7 +69,7 @@ public class UserController(
         return NoContent();
     }
 
-    [HttpPost]
+    [HttpPost("UpdateUser")]
     public async Task<UserDTO> Update(UserDTO userDTO)
     {
         var stopwatch = Stopwatch.StartNew();

@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using WebApplication1.Domain.Entities;
+using WebApplication1.Domain.Entities.UserDepartament;
 
 namespace WebApplication1.Infrastructure.DbContex;
 
@@ -10,6 +11,7 @@ public class UserDbContext : DbContext
         : base(options) { }
 
     public DbSet<User> Users { get; set; }
+    public DbSet<Departament> Departaments { get; set; } 
 
     // protected override void OnModelCreating(ModelBuilder modelBuilder)
     // {
@@ -21,6 +23,11 @@ public class UserDbContext : DbContext
     //         entity.Property(e => e.Password).IsRequired();
     //     });
     // }
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        // aplica automaticamente todas as configurações IEntityTypeConfiguration<T> do assembly
+        modelBuilder.ApplyConfigurationsFromAssembly(typeof(UserDbContext).Assembly);
+    }
 };
 
 public class UserEntityTypeConfiguration : IEntityTypeConfiguration<User>
@@ -31,8 +38,9 @@ public class UserEntityTypeConfiguration : IEntityTypeConfiguration<User>
         builder.Property(u => u.Name);
         builder.Property(u => u.Email).IsRequired();
         builder.Property(u => u.Password).IsRequired();
-        builder.Property(u => u.Departament);
         builder.Property(u => u.CreatedAt);
         builder.Property(u => u.UpdatedAt);
+        
+
     }
 }

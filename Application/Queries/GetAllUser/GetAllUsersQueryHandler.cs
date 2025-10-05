@@ -16,5 +16,10 @@ namespace WebApplication1.Application.Queries.GetAllUser
         {
             return await _query.ExecuteAsync();
         }
+
+        public async Task<IEnumerable<UserDTO>> HandleAsync(int page)
+        {
+            return await _query.ExecuteAsync(page);
+        }
     }
 }

@@ -21,4 +21,16 @@ public class GetAllUsersQuery(UserDbContext db) : IGetAllUsersQuery
             .OrderBy(name => name.Name)
             .ToListAsync();
     }
+
+    public async Task<IEnumerable<UserDTO>> ExecuteAsync(int Page)
+    {
+        var PageLimit = 10;
+        return await _db
+            .Users.OrderBy(u => u.Name)
+            .Select(x => new UserDTO { Email = x.Email, Name = x.Name })
+            .OrderBy(u => u.Name)
+            .Skip((Page - 1) * PageLimit)
+            .Take(PageLimit)
+            .ToListAsync();
+    }
 }

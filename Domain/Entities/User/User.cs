@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
+using manegement.Domain.Enum;
 using Microsoft.EntityFrameworkCore;
 using WebApplication1.Domain.Entities.UserDepartament;
 
@@ -15,15 +16,16 @@ public class User
     public required string Name { get; set; }
     public required string Email { get; set; }
     public required string Password { get; set; }
-    public Departament Departament { get; set; }
+    public Level Level { get; set; }
     public DateTime CreatedAt { get; set; }
     public DateTime UpdatedAt { get; set; }
+
 
     public User(
         string name,
         string email,
         string password,
-        Departament departament,
+        Level level,
         DateTime createdAt,
         DateTime updatedAt
     )
@@ -32,7 +34,7 @@ public class User
         Name = name;
         Email = email;
         Password = password;
-        Departament = departament;
+        Level = level;
         CreatedAt = createdAt;
         UpdatedAt = updatedAt;
     }
@@ -43,7 +45,7 @@ public class User
         Name = string.Empty;
         Email = string.Empty;
         Password = string.Empty;
-        Departament = Departament.Junior;
+        Level = Level.Junior;
         CreatedAt = DateTime.UtcNow;
         UpdatedAt = DateTime.UtcNow;
     }

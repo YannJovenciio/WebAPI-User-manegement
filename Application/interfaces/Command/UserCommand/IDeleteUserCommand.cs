@@ -5,5 +5,5 @@ namespace WebApplication1.Application.interfaces.Command;
 
 public interface IDeleteUserCommand
 {
-    public void DeleteUserAsync(Guid id, CancellationToken cancellationToken);
+    public void DeleteUserAsync(UserDTO user, CancellationToken cancellationToken);
 }

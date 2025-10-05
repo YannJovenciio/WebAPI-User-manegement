@@ -1,3 +1,4 @@
+using WebApplication1.Application.DTOs;
 using WebApplication1.Application.interfaces.Command;
 using WebApplication1.Domain.Entities;
 using WebApplication1.Domain.Repositories;
@@ -13,8 +14,8 @@ public class DeleteUserCommand : IDeleteUserCommand
         _repository = repository;
     }
 
-    public void DeleteUserAsync(Guid id, CancellationToken cancellationToken)
+    public void DeleteUserAsync(UserDTO user, CancellationToken cancellationToken)
     {
-        _repository.DeleteUserAsync(id, cancellationToken);
+        _repository.DeleteUserAsync(user, cancellationToken);
     }
 }

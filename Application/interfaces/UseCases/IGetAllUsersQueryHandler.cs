@@ -8,5 +8,5 @@ namespace WebApplication1.Application.interfaces.UseCases;
 
 public interface IGetAllUsersQueryHandler
 {
-    Task<IEnumerable<UserDTO>> HandleAsync();
+    Task<IEnumerable<UserDTO>> HandleAsync(int Page);
 }

@@ -6,9 +6,9 @@ namespace ebApplication1.Application.Commands.UpdateUser;
 
 public class UpdateUserCommandHandler : IUpdateUsersCommandHandler
 {
-    private readonly UserRepository _repository;
+    private readonly IUserRepository _repository;
 
-    public UpdateUserCommandHandler(UserRepository userRepository)
+    public UpdateUserCommandHandler(IUserRepository userRepository)
     {
         _repository = userRepository;
     }
